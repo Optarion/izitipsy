@@ -4,6 +4,7 @@ import './scss/index.scss'
 
 function HomePage () {
   const [data, setData] = React.useState([])
+  const [fees, setFees] = React.useState('2.9')
 
   React.useEffect(() => {
     async function getDBResults () {
@@ -17,11 +18,14 @@ function HomePage () {
     getDBResults()
   }, [])
 
-  console.log('data', data)
+  const onChangeFees = event => {
+    setFees(event.target.value)
+  }
 
   return (
     <>
       <div className='app-title'>Symplik - Bénéfice par prix du billet</div>
+      <div>Frais bancaires: <input type='text' value={fees} onChange={onChangeFees} /></div>
     </>
   )
 }
