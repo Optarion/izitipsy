@@ -52,7 +52,7 @@ function HomePage () {
   return (
     <>
       <div className='app-title'>Symplik - Profit by ticket price</div>
-      <div>Bank fees: <input type='text' value={bankFee} onChange={onChangeBankFee} />$ + <input type='text' value={displayAdditionalBankFee(additionalBankFee)} onChange={onChangeAdditionalFee} />%</div>
+      <aside className='app-aside'>Bank fees: <input type='text' value={bankFee} onChange={onChangeBankFee} />$ + <input type='text' value={displayAdditionalBankFee(additionalBankFee)} onChange={onChangeAdditionalFee} />%</aside>
 
       <main className='app-main'>
         {isLoading
