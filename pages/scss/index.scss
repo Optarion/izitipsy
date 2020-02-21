@@ -1,10 +1,15 @@
+body {
+	text-align: center;
+}
+
 .app-title {
-	font-weight: bold
+	padding: 1em;
+	font-size: 2em;
+	font-weight: bold;
 }
 
 .app-table {
 	width: 100%;
-	text-align: center;
 	border-spacing: 0;
 
 	thead {
