@@ -10,17 +10,7 @@ export default withDb(async (req, res) => {
   const ticketsGroupedByPrice = tickets.reduce((groupedTickets, ticket) => {
     const { amount, tips } = ticket
 
-    const stringifiedAmount = String(Math.round(amount))
-    const amountTens = Number(stringifiedAmount.substr(-2))
-    const baseGroupRange = Math.round(amount) - amountTens
-
-    let groupRange = stringifiedAmount.substring(0, stringifiedAmount.length - 2)
-    if (amountTens < 100 || amountTens === 0) groupRange = baseGroupRange + 100
-    if (amountTens < 80) groupRange = baseGroupRange + 80
-    if (amountTens < 60) groupRange = baseGroupRange + 60
-    if (amountTens < 40) groupRange = baseGroupRange + 40
-    if (!amountTens || amountTens < 20) groupRange = baseGroupRange + 20
-
+    const groupRange = getTicketPriceRange(amount)
     const ticketRangeGroup = groupedTickets[groupRange]
 
     return {
@@ -43,3 +33,18 @@ export default withDb(async (req, res) => {
 
   return res.status(200).json(Object.values(ticketsGroupedByPrice))
 })
+
+function getTicketPriceRange (amount) {
+  const stringifiedAmount = String(Math.round(amount))
+  const amountTens = Number(stringifiedAmount.substr(-2))
+  const basePriceRange = Math.round(amount) - amountTens
+
+  let ticketPriceRange = 0
+  if (amountTens < 100 || amountTens === 0) ticketPriceRange = basePriceRange + 100
+  if (amountTens < 80) ticketPriceRange = basePriceRange + 80
+  if (amountTens < 60) ticketPriceRange = basePriceRange + 60
+  if (amountTens < 40) ticketPriceRange = basePriceRange + 40
+  if (!amountTens || amountTens < 20) ticketPriceRange = basePriceRange + 20
+
+  return ticketPriceRange
+}
