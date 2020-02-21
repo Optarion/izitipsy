@@ -2,6 +2,9 @@ import React from 'react'
 import fetch from 'isomorphic-unfetch'
 import './scss/index.scss'
 
+import Loader from 'react-loader-spinner'
+import '../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+
 const config = {
   defaultBaseBankFee: 0.3,
   defaultAdditionalBankFees: 2.9
@@ -9,6 +12,7 @@ const config = {
 
 function HomePage () {
   const [data, setData] = React.useState([])
+  const [isLoading, setIsLoading] = React.useState(true)
   const [bankFee, setBankFee] = React.useState(config.defaultBaseBankFee)
   const [additionalBankFee, setAdditionalBankFee] = React.useState(config.defaultAdditionalBankFees / 100)
 
@@ -18,6 +22,7 @@ function HomePage () {
 
       const tickets = await results.json()
 
+      setIsLoading(false)
       setData(tickets)
     }
 
@@ -49,24 +54,29 @@ function HomePage () {
       <div className='app-title'>Symplik - Profit by ticket price</div>
       <div>Bank fees: <input type='text' value={bankFee} onChange={onChangeBankFee} />$ + <input type='text' value={displayAdditionalBankFee(additionalBankFee)} onChange={onChangeAdditionalFee} />%</div>
 
-      <table>
-        <thead>
-          <tr>
-            <td>Ticket price</td>
-            <td>Quantity</td>
-            <td>Average profit</td>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(ticketGroup => (
-            <tr key={ticketGroup.id}>
-              <td>{`< ${ticketGroup.id}$`}</td>
-              <td>{ticketGroup.quantity}</td>
-              <td>{calculateAverageFee(ticketGroup)}$</td>
+      {isLoading
+        ? <Loader
+          type='TailSpin'
+          color='#00BFFF'
+          timeout={3000} />
+        : <table>
+          <thead>
+            <tr>
+              <td>Ticket price</td>
+              <td>Quantity</td>
+              <td>Average profit</td>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map(ticketGroup => (
+              <tr key={ticketGroup.id}>
+                <td>{`< ${ticketGroup.id}$`}</td>
+                <td>{ticketGroup.quantity}</td>
+                <td>{calculateAverageFee(ticketGroup)}$</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>}
     </>
   )
 }
