@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { default: { mongoURI }} = require('../config/index.js')
 
 export default handler => async (req, res) => {
   const db = mongoose.connection;
@@ -7,7 +8,7 @@ export default handler => async (req, res) => {
 
   if (db.readyState == 1) return handler(req, res);
 
-  mongoose.connect("mongodb://applicant:johndoethesuperapplicant0@ds019906.mlab.com:19906/heroku_l6prczn1", { useNewUrlParser: true });
+  mongoose.connect(mongoURI, { useNewUrlParser: true });
 
   db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", function() {
