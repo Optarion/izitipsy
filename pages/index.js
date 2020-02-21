@@ -3,12 +3,14 @@ import fetch from 'isomorphic-unfetch'
 import './scss/index.scss'
 
 const config = {
-  defaultBankFee: 2.9
+  defaultBaseBankFee: 0.3,
+  defaultAdditionalBankFees: 2.9
 }
 
 function HomePage () {
   const [data, setData] = React.useState([])
-  const [bankFee, setBankFee] = React.useState(config.defaultBankFee / 100)
+  const [bankFee, setBankFee] = React.useState(config.defaultBaseBankFee)
+  const [additionalBankFee, setAdditionalBankFee] = React.useState(config.defaultAdditionalBankFees / 100)
 
   React.useEffect(() => {
     async function getDBResults () {
@@ -22,26 +24,30 @@ function HomePage () {
     getDBResults()
   }, [])
 
-  const displayBankFee = bankFee => {
-    return bankFee * 100
+  const onChangeBankFee = event => {
+    setBankFee(event.target.value / 100)
   }
 
-  const onChangeFees = event => {
-    setBankFee(event.target.value / 100)
+  const displayAdditionalBankFee = additionalBankFee => {
+    return additionalBankFee * 100
+  }
+
+  const onChangeAdditionalFee = event => {
+    setAdditionalBankFee(event.target.value / 100)
   }
 
   const calculateAverageFee = ticketGroup => {
     const { quantity, totalTips, totalTransfered } = ticketGroup
 
-    const ticketGroupBankFee = 0.3 * quantity + bankFee * totalTransfered
+    const ticketGroupBankFee = 0.3 * quantity + additionalBankFee * totalTransfered
 
-    return (totalTips - ticketGroupBankFee).toFixed(2)
+    return ((totalTips - ticketGroupBankFee) / quantity).toFixed(2)
   }
 
   return (
     <>
       <div className='app-title'>Symplik - Profit by ticket price</div>
-      <div>Bank fee: <input type='text' value={displayBankFee(bankFee)} onChange={onChangeFees} />%</div>
+      <div>Bank fees: <input type='text' value={bankFee} onChange={onChangeBankFee} />$ + <input type='text' value={displayAdditionalBankFee(additionalBankFee)} onChange={onChangeAdditionalFee} />%</div>
 
       <table>
         <thead>

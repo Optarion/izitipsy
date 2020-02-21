@@ -10,9 +10,9 @@ export default withDb(async (req, res) => {
   const ticketsGroupedByPrice = tickets.reduce((groupedTickets, ticket) => {
     const { amount, tips } = ticket
 
-    const stringifiedAmount = String(amount)
+    const stringifiedAmount = String(Math.round(amount))
     const amountTens = Number(stringifiedAmount.substr(-2))
-    const baseGroupRange = amount - amountTens
+    const baseGroupRange = Math.round(amount) - amountTens
 
     let groupRange = stringifiedAmount.substring(0, stringifiedAmount.length - 2)
     if (amountTens < 100 || amountTens === 0) groupRange = baseGroupRange + 100
