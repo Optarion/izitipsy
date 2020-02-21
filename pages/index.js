@@ -1,7 +1,7 @@
 import React from 'react'
+import Main from './components/Main'
 import './scss/index.scss'
 import '../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css'
-import Main from './components/Main'
 
 const config = {
   defaultBaseBankFee: 0.3,
@@ -27,6 +27,7 @@ function HomePage () {
   return (
     <>
       <div className='app-title'>Symplik - Profit by ticket price</div>
+
       <aside className='app-aside'>
         Bank fees:
         <input type='text' value={bankFee} onChange={onChangeBankFee} />$ +
