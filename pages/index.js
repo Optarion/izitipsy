@@ -30,7 +30,7 @@ function HomePage () {
   }, [])
 
   const onChangeBankFee = event => {
-    setBankFee(event.target.value / 100)
+    setBankFee(event.target.value)
   }
 
   const displayAdditionalBankFee = additionalBankFee => {
@@ -44,7 +44,7 @@ function HomePage () {
   const calculateAverageFee = ticketGroup => {
     const { quantity, totalTips, totalTransfered } = ticketGroup
 
-    const ticketGroupBankFee = 0.3 * quantity + additionalBankFee * totalTransfered
+    const ticketGroupBankFee = bankFee * quantity + additionalBankFee * totalTransfered
 
     return ((totalTips - ticketGroupBankFee) / quantity).toFixed(2)
   }
