@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema,
   ticketSchema = new Schema({
@@ -6,8 +6,8 @@ const Schema = mongoose.Schema,
     amount: Number // Montant du billet
   }),
   Ticket =
-    mongoose.modelNames().indexOf("Ticket") == -1
-      ? mongoose.model("Ticket", ticketSchema)
-      : mongoose.model("Ticket");
+    mongoose.modelNames().indexOf('Ticket') === -1
+      ? mongoose.model('Ticket', ticketSchema)
+      : mongoose.model('Ticket')
 
-export default Ticket;
+export default Ticket

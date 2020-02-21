@@ -1,5 +1,5 @@
-import withDb from "../../utils/db"
-import Ticket from "../../schemas/tickets"
+import withDb from '../../utils/db'
+import Ticket from '../../schemas/tickets'
 
 export default withDb(async (req, res) => {
   /* NOTA: I tried to use mongodb's agregation to compute the heavy grouping calculations.
