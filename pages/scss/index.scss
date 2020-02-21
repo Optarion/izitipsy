@@ -1,3 +1,22 @@
 .app-title {
 	font-weight: bold
 }
+
+.app-table {
+	width: 100%;
+	text-align: center;
+	border-spacing: 0;
+
+	thead {
+		background: #d2d2d2;
+		font-weight: bold;
+	}
+
+	tbody tr:nth-child(even) {
+		background: #efefef;
+	}
+
+	td {
+		padding: 1em .5em;
+	}
+}

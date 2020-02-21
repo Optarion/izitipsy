@@ -54,29 +54,31 @@ function HomePage () {
       <div className='app-title'>Symplik - Profit by ticket price</div>
       <div>Bank fees: <input type='text' value={bankFee} onChange={onChangeBankFee} />$ + <input type='text' value={displayAdditionalBankFee(additionalBankFee)} onChange={onChangeAdditionalFee} />%</div>
 
-      {isLoading
-        ? <Loader
-          type='TailSpin'
-          color='#00BFFF'
-          timeout={3000} />
-        : <table>
-          <thead>
-            <tr>
-              <td>Ticket price</td>
-              <td>Quantity</td>
-              <td>Average profit</td>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(ticketGroup => (
-              <tr key={ticketGroup.id}>
-                <td>{`< ${ticketGroup.id}$`}</td>
-                <td>{ticketGroup.quantity}</td>
-                <td>{calculateAverageFee(ticketGroup)}$</td>
+      <main className='app-main'>
+        {isLoading
+          ? <Loader
+            type='TailSpin'
+            color='#00BFFF'
+            timeout={3000} />
+          : <table className='app-table'>
+            <thead>
+              <tr>
+                <td>Ticket price</td>
+                <td>Quantity</td>
+                <td>Average profit</td>
               </tr>
-            ))}
-          </tbody>
-        </table>}
+            </thead>
+            <tbody>
+              {data.map(ticketGroup => (
+                <tr key={ticketGroup.id}>
+                  <td>{`< ${ticketGroup.id}$`}</td>
+                  <td>{ticketGroup.quantity}</td>
+                  <td>{calculateAverageFee(ticketGroup)}$</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>}
+      </main>
     </>
   )
 }
