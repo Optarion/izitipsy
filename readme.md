@@ -1,3 +1,15 @@
-# Test de Simplyk
+# Average ticket by price
 
-[Consignes](https://thibaut-jaurou.gitbook.io/izitipsy/)
+## Usage
+
+Install dependencies
+```
+npm i
+```
+
+Before launching the app, you need to update the config file with the mongoURI
+
+Launch the app
+```
+npm run dev
+```
