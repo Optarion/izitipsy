@@ -26,7 +26,7 @@ function HomePage () {
 
   return (
     <>
-      <div className='app-title'>Symplik - Profit by ticket price</div>
+      <div className='app-title'>Average profit by ticket price</div>
 
       <aside className='app-aside'>
         Bank fees:
